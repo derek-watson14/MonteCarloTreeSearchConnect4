@@ -1,5 +1,5 @@
 import numpy as np
-from mctspy.games.common import TwoPlayersAbstractGameState, AbstractGameAction
+from game.common import TwoPlayersAbstractGameState, AbstractGameAction
 
 
 class ConnectFourMove(AbstractGameAction):

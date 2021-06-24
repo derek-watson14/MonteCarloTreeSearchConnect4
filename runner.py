@@ -3,11 +3,11 @@ import pygame
 import sys
 import time
 
-import c4
+import logic
 
 # Initialize pygame
 pygame.init()
-pygame.display.set_caption('Connect Four vs MCST AI')
+pygame.display.set_caption('Connect Four vs MCTS AI')
 
 # Colors
 RED = (180, 54, 87)
@@ -110,8 +110,12 @@ class Game:
         self.result = None
         self.is_over = False
 
-    def draw_new_game(self):
-        board_state = c4.ConnectFourGameState(state=self.empty, next_to_move=1)
+    def new_game(self):
+        self.human = False
+        self.ai = False
+        self.ai_time = False
+        board_state = logic.ConnectFourGameState(
+            state=self.empty, next_to_move=1)
         self.update_board(board_state)
         screen.fill(BLACK)
         draw_board(self.board)
@@ -137,12 +141,6 @@ class Game:
         self.running = False
 
 
-def new_game():
-    game = Game()
-    game.draw_new_game()
-    return game
-
-
 # Cell dimensions
 SQUARESIZE = 80
 RADIUS = int((SQUARESIZE / 2) - 4)
@@ -159,7 +157,8 @@ screen = pygame.display.set_mode(size)
 titleFont = pygame.font.SysFont('bahnschrift', 24)
 buttonFont = pygame.font.SysFont('bahnschrift', 16)
 
-game = new_game()
+game = Game()
+game.new_game()
 
 while game.running:
     for event in pygame.event.get():
@@ -200,14 +199,15 @@ while game.running:
             draw_board(game.board)
         if event.type == pygame.MOUSEBUTTONUP:
             col = int(event.pos[0] / 80)
-            new_board_state = c4.play_one_human_turn(game.board_state, col)
+            new_board_state = logic.play_one_human_turn(game.board_state, col)
             game.update_board(new_board_state)
             draw_board(game.board)
             game.turn += 1
 
     elif game.ai_time and game.next_up == game.ai and not game.is_over:
         draw_ai_choice_screen(game.board, game.ai_time)
-        new_board_state = c4.play_one_ai_turn(game.board_state, game.ai_time)
+        new_board_state = logic.play_one_ai_turn(
+            game.board_state, game.ai_time)
         game.update_board(new_board_state)
         draw_board(game.board)
         game.turn += 1
@@ -218,8 +218,8 @@ while game.running:
             win_message = "Draw! No winner in 42 turns!"
         else:
             win_message = "{0} ({1}) wins in {2} turns! ".format(
-                c4.interpret_color(game.result).capitalize(),
-                c4.interpret_player(game.result, game.human, game.ai),
+                logic.interpret_color(game.result).capitalize(),
+                logic.interpret_player(game.result, game.human, game.ai),
                 game.turn
             )
         reset_button = draw_win_screen(win_message, game.board)
@@ -229,4 +229,4 @@ while game.running:
             mouse_pos = pygame.mouse.get_pos()
             if reset_button.collidepoint(mouse_pos):
                 time.sleep(0.2)
-                game = new_game()
+                game.new_game()
