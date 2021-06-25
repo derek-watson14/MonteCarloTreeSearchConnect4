@@ -78,7 +78,7 @@ while True:
             if level_buttons[1].collidepoint(mouse_pos):
                 game.set_ai_time(3)
             if level_buttons[2].collidepoint(mouse_pos):
-                game.set_ai_time(7)
+                game.set_ai_time(9)
 
     elif game.ai_time and not game.human:
         color_buttons = g.draw_color_screen(game.board)
@@ -107,8 +107,7 @@ while True:
 
     elif game.ai_time and game.next_up == game.ai and not game.is_over:
         g.draw_ai_choice_screen(game.board, game.ai_time)
-        new_board_state = l.play_one_ai_turn(
-            game.board_state, game.ai_time)
+        new_board_state = l.play_one_ai_turn(game.board_state, game.ai_time)
         game.update_board(new_board_state)
         g.draw_board(game.board)
         game.turn += 1

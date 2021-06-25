@@ -13,8 +13,8 @@ HARD = (104, 159, 254)
 
 # Fonts
 pygame.font.init()
-titleFont = pygame.font.SysFont('bahnschrift', 24)
-buttonFont = pygame.font.SysFont('bahnschrift', 16)
+titleFont = pygame.font.SysFont('ariel', 32)
+buttonFont = pygame.font.SysFont('ariel', 24)
 
 # Cell dimensions
 SQUARESIZE = 80
@@ -85,7 +85,7 @@ def draw_ai_level_screen(board):
     draw_title(int(SQUARESIZE * 0.75), "AI Level:")
     easy = draw_top_button(SQUARESIZE * 1.75, "Normal", BLACK, WHITE)
     medium = draw_top_button(SQUARESIZE * 3.5, "Hard", BLACK, MEDIUM)
-    hard = draw_top_button(SQUARESIZE * 5.25, "!*@?", BLACK, HARD)
+    hard = draw_top_button(SQUARESIZE * 5.25, "Hardest", BLACK, HARD)
 
     draw_board(board)
     return (easy, medium, hard)
