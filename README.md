@@ -10,6 +10,8 @@ The graphical interface is a really simple one included to make the game playabl
 2. Install numpy and pygame
 3. In root directory use command: `python runner.py`
 
+_Note: In-game fonts will not render if Arial is not a system font in your environment_
+
 ### Features:
 
 - Choose if human or AI player plays first
