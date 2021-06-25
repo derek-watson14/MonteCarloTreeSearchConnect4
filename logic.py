@@ -1,6 +1,6 @@
 from tree.nodes import TwoPlayersGameMonteCarloTreeSearchNode
 from tree.search import MonteCarloTreeSearch
-from game.connectfour import ConnectFourGameState, ConnectFourMove
+from game.connectfour import ConnectFourMove
 
 
 def interpret_color(player):
